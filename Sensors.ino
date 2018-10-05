@@ -37,6 +37,8 @@ int max_order = 5;
 #define ORDER_UV            4
 #define ORDER_GAS           5
 
+char sensorChar[6] = {'0', 'T', 'H', 'D', 'U', 'G'};
+
 void setup()
 {
     Serial.begin(9600);
@@ -58,7 +60,7 @@ void setup_bluetooth_pins_and_name()
 
 unsigned char * get_char_array_for_writing(int order, float value)
 {
-    char order_string[8] = {char(order), 0, 0, 0, 0, 0, 0, 0};
+    char order_string[8] = {sensorChar[order], 0, 0, 0, 0, 0, 0, 0};
     char value_string_array[7];
     dtostrf(value, 6, 3, value_string_array);
     String value_string = String(value_string_array);
@@ -72,7 +74,7 @@ unsigned char * get_char_array_for_writing(int order, float value)
 }
 
 void print_value_to_serial(int order, float value) {
-    Serial.print(order);
+    Serial.print(sensorChar[order]);
     Serial.print(":");
     Serial.println(value);
 }
